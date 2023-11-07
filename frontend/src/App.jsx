@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react'
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
+import DoctorRegistration from './pages/doctor/DoctorRegistration';
+import Homepage from './pages/Homepage';
+import DoctorApprovalRequest from './components/DoctorApprovalRequest';
+import axios from 'axios';
+import PendingRequests from './pages/admin/PendingRequests';
 
+
+axios.defaults.baseURL = "http://localhost:3000";
+
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+
+        {/* doctor paths */}
+        <Route
+          path="/doctor/doctor-registration"
+          element={<DoctorRegistration />}
+        />
+
+        {/* admin paths */}
+        <Route
+          path="/admin/pendingDoctorRequests"
+          element={<PendingRequests />}
+        />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App
